@@ -1,11 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "SonosRB CLI started. Type 'exit' to quit."
+require_relative "cli"
 
-loop do
-  print "> "
-  input = gets&.chomp
-  break if input.nil? || input == "exit"
-end
-
-puts "Goodbye!"
+CLI.new.start
