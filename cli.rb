@@ -7,6 +7,7 @@ class CLI
   COMMANDS = [
     Commands::Help,
     Commands::Exit,
+    Commands::Scan,
   ].freeze
 
   HINT = "Type 'help' for a list of commands, 'exit' to quit."
