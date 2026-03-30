@@ -1,13 +1,13 @@
-require_relative '../app/scanner'
+require_relative '../app/ssdp/scanner'
 
-describe Scanner do
+describe SSDP::Scanner do
   let(:unit) { described_class.new }
 
   describe '#scan' do
     let(:socket) { instance_double(UDPSocket, setsockopt: 0, send: nil, close: nil) }
 
     before do
-      stub_const("Scanner::TIMEOUT", 0.1)
+      stub_const("SSDP::Scanner::TIMEOUT", 0.1)
       allow(IO).to receive(:select).and_return(nil)
       allow(UDPSocket).to receive(:new).and_return(socket)
     end
@@ -17,7 +17,7 @@ describe Scanner do
     it 'opens a UDP socket with broadcast enabled and sends the search message' do
       expect(socket).to receive(:setsockopt).with(Socket::SOL_SOCKET, Socket::SO_BROADCAST, 1)
       expect(socket).to receive(:send).with(
-        Scanner::SEARCH_MESSAGE, 0, Scanner::SSDP_ADDRESS, Scanner::SSDP_PORT
+        SSDP::Scanner::SEARCH_MESSAGE, 0, SSDP::Scanner::SSDP_ADDRESS, SSDP::Scanner::SSDP_PORT
       )
 
       subject
@@ -40,11 +40,11 @@ describe Scanner do
       before do
         allow(IO).to receive(:select).and_return(*select_returns)
         allow(socket).to receive(:recvfrom).and_return([response_data, nil])
-        allow(SSDPResponse).to receive(:new).with(response_data).and_return(*responses)
+        allow(SSDP::Response).to receive(:new).with(response_data).and_return(*responses)
       end
 
       context 'with a matching response' do
-        let(:response) { instance_double(SSDPResponse, search_target: Scanner::SEARCH_TARGET, location: 'http://192.168.0.182:1400/xml/device_description.xml') }
+        let(:response) { instance_double(SSDP::Response, search_target: SSDP::Scanner::SEARCH_TARGET, location: 'http://192.168.0.182:1400/xml/device_description.xml') }
 
         it 'returns the location' do
           expect(subject).to eq(['http://192.168.0.182:1400/xml/device_description.xml'])
@@ -52,8 +52,8 @@ describe Scanner do
       end
 
       context 'with multiple matching responses' do
-        let(:response_one) { instance_double(SSDPResponse, search_target: Scanner::SEARCH_TARGET, location: 'http://192.168.0.182:1400/xml/device_description.xml') }
-        let(:response_two) { instance_double(SSDPResponse, search_target: Scanner::SEARCH_TARGET, location: 'http://192.168.0.183:1400/xml/device_description.xml') }
+        let(:response_one) { instance_double(SSDP::Response, search_target: SSDP::Scanner::SEARCH_TARGET, location: 'http://192.168.0.182:1400/xml/device_description.xml') }
+        let(:response_two) { instance_double(SSDP::Response, search_target: SSDP::Scanner::SEARCH_TARGET, location: 'http://192.168.0.183:1400/xml/device_description.xml') }
         let(:responses) { [response_one, response_two] }
 
         it 'returns all locations' do
@@ -65,7 +65,7 @@ describe Scanner do
       end
 
       context 'with a response that has no location' do
-        let(:response) { instance_double(SSDPResponse, search_target: Scanner::SEARCH_TARGET, location: nil) }
+        let(:response) { instance_double(SSDP::Response, search_target: SSDP::Scanner::SEARCH_TARGET, location: nil) }
 
         it 'does not include it' do
           expect(subject).to be_empty
@@ -73,7 +73,7 @@ describe Scanner do
       end
 
       context 'with a different search target' do
-        let(:response) { instance_double(SSDPResponse, search_target: 'urn:schemas-upnp-org:device:MediaServer:1', location: 'http://192.168.0.50:8080/description.xml') }
+        let(:response) { instance_double(SSDP::Response, search_target: 'urn:schemas-upnp-org:device:MediaServer:1', location: 'http://192.168.0.50:8080/description.xml') }
 
         it 'does not include it' do
           expect(subject).to be_empty

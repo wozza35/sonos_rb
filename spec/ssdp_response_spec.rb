@@ -1,6 +1,6 @@
-require_relative '../app/ssdp_response'
+require_relative '../app/ssdp/response'
 
-describe SSDPResponse do
+describe SSDP::Response do
   let(:raw_response) do
     "HTTP/1.1 200 OK\r\n" \
       "CACHE-CONTROL: max-age = 1800\r\n" \

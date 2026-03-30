@@ -1,5 +1,5 @@
 require_relative "base"
-require_relative "../scanner"
+require_relative "../ssdp/scanner"
 
 module Commands
   class Scan < Base
@@ -13,7 +13,7 @@ module Commands
 
     def execute
       puts "Scanning for Sonos devices..."
-      devices = Scanner.new.scan
+      devices = SSDP::Scanner.new.scan
 
       if devices.empty?
         puts "No devices found."
