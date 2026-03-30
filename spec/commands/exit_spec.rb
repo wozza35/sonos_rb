@@ -1,4 +1,4 @@
-require_relative "../../commands/exit"
+require_relative "../../app/commands/exit"
 
 describe Commands::Exit do
   describe ".command_name" do

@@ -1,4 +1,4 @@
-require_relative '../scanner'
+require_relative '../app/scanner'
 
 describe Scanner do
   let(:unit) { described_class.new }

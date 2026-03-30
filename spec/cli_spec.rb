@@ -1,4 +1,4 @@
-require_relative "../cli"
+require_relative "../app/cli"
 
 describe CLI do
   let(:unit) { described_class.new }

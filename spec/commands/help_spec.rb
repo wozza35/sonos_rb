@@ -1,4 +1,4 @@
-require_relative "../../cli"
+require_relative "../../app/cli"
 
 describe Commands::Help do
   describe ".command_name" do
