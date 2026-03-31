@@ -9,10 +9,15 @@ describe SSDP::Response do
       "ST: urn:schemas-upnp-org:device:ZonePlayer:1\r\n" \
       "\r\n"
   end
+  let(:location) { instance_double(SSDP::Location) }
   let(:subject) { described_class.new(raw_response) }
 
+  before do
+    allow(SSDP::Location).to receive(:new).with('http://192.168.1.10:1400/xml/device_description.xml').and_return location
+  end
+
   it 'extracts the location' do
-    expect(subject.location).to eq('http://192.168.1.10:1400/xml/device_description.xml')
+    expect(subject.location).to eq(location)
   end
 
   it 'extracts the search target' do
@@ -28,7 +33,7 @@ describe SSDP::Response do
     end
 
     it 'extracts the location' do
-      expect(subject.location).to eq('http://192.168.1.10:1400/xml/device_description.xml')
+      expect(subject.location).to eq(location)
     end
 
     it 'extracts the search target' do

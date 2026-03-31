@@ -13,13 +13,13 @@ module Commands
 
     def execute
       puts "Scanning for Sonos devices..."
-      devices = SSDP::Scanner.new.scan
+      locations = SSDP::Scanner.new.scan
 
-      if devices.empty?
+      if locations.empty?
         puts "No devices found."
       else
-        puts "Found #{devices.size} device(s):"
-        devices.each { |device| puts "  #{device}" }
+        puts "Found #{locations.size} device(s):"
+        locations.each { |location| puts "  #{location}" }
       end
     end
   end
