@@ -21,4 +21,9 @@ describe UPnP::Service do
     subject { service.control_url }
     it { is_expected.to eq '/MediaRenderer/AVTransport/Control' }
   end
+
+  describe '#name' do
+    subject { service.name }
+    it { is_expected.to eq 'AVTransport' }
+  end
 end
