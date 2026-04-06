@@ -1,3 +1,5 @@
+require_relative 'location'
+
 module SSDP
   class Response
     def initialize(raw_response)
@@ -8,7 +10,7 @@ module SSDP
     end
 
     def location
-      @headers['LOCATION']
+      Location.new(@headers['LOCATION']) if @headers['LOCATION']
     end
 
     def search_target
