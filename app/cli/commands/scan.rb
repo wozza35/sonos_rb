@@ -5,6 +5,8 @@ require_relative "../../sonos/device_description"
 module CLI
   module Commands
     class Scan < Base
+      SEARCH_TARGET = "urn:schemas-upnp-org:device:ZonePlayer:1"
+
       def self.command_name
         "scan"
       end
@@ -15,7 +17,7 @@ module CLI
 
       def execute
         puts "Scanning for Sonos devices..."
-        locations = SSDP::Scanner.new.scan
+        locations = SSDP::Scanner.new(SEARCH_TARGET).scan
 
         if locations.empty?
           puts "No devices found."

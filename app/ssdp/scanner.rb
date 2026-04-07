@@ -5,20 +5,11 @@ module SSDP
   class Scanner
     SSDP_ADDRESS = "239.255.255.250"
     SSDP_PORT = 1900
-    SEARCH_TARGET = "urn:schemas-upnp-org:device:ZonePlayer:1"
     TIMEOUT = 3
 
-    SEARCH_MESSAGE = <<~MSG
-      M-SEARCH * HTTP/1.1\r
-      HOST: #{SSDP_ADDRESS}:#{SSDP_PORT}\r
-      MAN: "ssdp:discover"\r
-      MX: #{TIMEOUT}\r
-      ST: #{SEARCH_TARGET}\r
-      \r
-    MSG
-
-    def initialize
+    def initialize(search_target)
       @found_locations = []
+      @search_target = search_target
     end
 
     def scan
@@ -31,12 +22,12 @@ module SSDP
 
     private
 
-    attr_reader :found_locations
+    attr_reader :found_locations, :search_target
 
     def broadcast_search
       @socket = UDPSocket.new
       @socket.setsockopt(Socket::SOL_SOCKET, Socket::SO_BROADCAST, 1)
-      @socket.send(SEARCH_MESSAGE, 0, SSDP_ADDRESS, SSDP_PORT)
+      @socket.send(search_message, 0, SSDP_ADDRESS, SSDP_PORT)
     end
 
     def collect_responses
@@ -44,7 +35,7 @@ module SSDP
         break unless IO.select([@socket], nil, nil, TIMEOUT)
 
         response = read_response
-        if response.search_target == SEARCH_TARGET && response.location
+        if response.search_target == search_target && response.location
           found_locations << response.location
         end
       end
@@ -53,6 +44,17 @@ module SSDP
     def read_response
       data, _ = @socket.recvfrom(4096)
       Response.new(data)
+    end
+
+    def search_message
+      <<~MSG
+        M-SEARCH * HTTP/1.1\r
+        HOST: #{SSDP_ADDRESS}:#{SSDP_PORT}\r
+        MAN: "ssdp:discover"\r
+        MX: #{TIMEOUT}\r
+        ST: #{search_target}\r
+        \r
+      MSG
     end
   end
 end
