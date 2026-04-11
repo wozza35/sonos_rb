@@ -44,31 +44,20 @@ describe Sonos::DeviceDescription do
       ]
     end
 
-    it 'parses the embedded devices' do
-      device_types = zone_player.embedded_devices.map(&:device_type)
-      expect(device_types).to eq [
-        'urn:schemas-upnp-org:device:MediaServer:1',
-        'urn:schemas-upnp-org:device:MediaRenderer:1',
-      ]
-    end
+    describe 'embedded devices' do
+      it 'parses the embedded devices' do
+        device_types = zone_player.embedded_devices.map(&:device_type)
+        expect(device_types).to eq ['urn:schemas-upnp-org:device:MediaServer:1',
+                                     'urn:schemas-upnp-org:device:MediaRenderer:1']
+      end
 
-    it 'parses media server services' do
-      media_server = zone_player.embedded_devices.first
-      service_names = media_server.services.map(&:name)
-      expect(service_names).to eq %w[ContentDirectory ConnectionManager]
-    end
-
-    it 'parses media renderer services' do
-      media_renderer = zone_player.embedded_devices.last
-      service_names = media_renderer.services.map(&:name)
-      expect(service_names).to eq %w[
-        RenderingControl
-        ConnectionManager
-        AVTransport
-        Queue
-        GroupRenderingControl
-        VirtualLineIn
-      ]
+      it 'parses the services of the embedded devices' do
+        service_names = zone_player.embedded_devices.map { |d| d.services.map(&:name) }
+        expect(service_names).to eq [
+          %w[ContentDirectory ConnectionManager],
+          %w[RenderingControl ConnectionManager AVTransport Queue GroupRenderingControl VirtualLineIn],
+        ]
+      end
     end
   end
 end
