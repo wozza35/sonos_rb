@@ -43,7 +43,7 @@ module Sonos
       return [] unless service_list
 
       service_list.elements.collect('service') do |service_xml|
-        UPnP::Service.new(XML::ElementParser.parse(service_xml))
+        UPnP::Service.new(attributes: XML::ElementParser.parse(service_xml), base_uri: location.uri)
       end
     end
   end
