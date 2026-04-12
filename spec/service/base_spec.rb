@@ -1,6 +1,6 @@
-require_relative '../../app/upnp/service'
+require_relative '../../app/service/base'
 
-describe UPnP::Service do
+describe Service::Base do
   let(:base_uri) { URI('http://192.168.0.182:1400') }
   let(:attributes) do
     {

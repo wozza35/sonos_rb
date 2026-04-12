@@ -1,8 +1,8 @@
 require 'rexml'
 require_relative '../soap/request'
 
-module UPnP
-  class Service
+module Service
+  class Base
     def initialize(attributes:, base_uri:)
       @service_type = attributes[:serviceType]
       @control_uri = URI.join(base_uri, attributes[:controlURL])
