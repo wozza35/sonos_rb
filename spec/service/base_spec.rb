@@ -22,8 +22,8 @@ describe Service::Base do
 
     before do
       allow(SOAP::Request).to receive(:new)
-                                .with(URI.join(base_uri, attributes[:controlURL]), action, attributes[:serviceType])
-                                .and_return(soap_request)
+        .with(URI('http://192.168.0.182:1400/MediaRenderer/AVTransport/Control'), action, attributes[:serviceType])
+        .and_return(soap_request)
     end
 
     subject { service.call(action) }

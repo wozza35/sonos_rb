@@ -44,6 +44,16 @@ describe Sonos::DeviceDescription do
       ]
     end
 
+    it 'builds each service' do
+      created_services = []
+      expect(Service).to receive(:build).at_least(:once).and_wrap_original do |method, **kwargs|
+        method.call(**kwargs).tap { |service| created_services << service }
+      end
+
+      all_services = zone_player.services + zone_player.embedded_devices.flat_map(&:services)
+      expect(all_services).to eq(created_services)
+    end
+
     describe 'embedded devices' do
       it 'parses the embedded devices' do
         device_types = zone_player.embedded_devices.map(&:device_type)

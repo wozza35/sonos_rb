@@ -1,7 +1,8 @@
-require_relative '../zone_group_topology'
+require 'rexml/document'
+require_relative '../base'
 
 module Service
-  class ZoneGroupTopology
+  class ZoneGroupTopology < Base
     class GetZoneGroupStateResponse
       def initialize(response)
         @response = response
