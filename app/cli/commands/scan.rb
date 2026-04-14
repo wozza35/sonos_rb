@@ -1,12 +1,9 @@
 require_relative "base"
-require_relative "../../ssdp/scanner"
-require_relative "../../sonos/device_description"
+require_relative "../../sonos/network"
 
 module CLI
   module Commands
     class Scan < Base
-      SEARCH_TARGET = "urn:schemas-upnp-org:device:ZonePlayer:1"
-
       def self.command_name
         "scan"
       end
@@ -17,25 +14,28 @@ module CLI
 
       def execute
         puts "Scanning for Sonos devices..."
-        locations = SSDP::Scanner.new(SEARCH_TARGET).scan
+        network = Sonos::Network.discover
 
-        if locations.empty?
+        if network.zone_players.empty?
           puts "No devices found."
           return
         end
 
-        locations.each_with_index do |location, i|
+        network.zone_players.each_with_index do |zone_player, i|
           puts "\n#{i + 1}:"
-          puts " #{location}"
-          zone_player = Sonos::DeviceDescription.new(location).fetch
           display_zone_player(zone_player)
+        end
+
+        puts "\nCoordinators:"
+        network.coordinators.each do |coordinator|
+          puts "  #{coordinator.room_name} (#{coordinator.display_name})"
         end
       end
 
       private
 
       def display_zone_player(zone_player)
-        puts "  Room: #{zone_player.room_name} "
+        puts "  Room: #{zone_player.room_name}"
         puts "  Display name: #{zone_player.display_name}"
         puts "  Model: #{zone_player.model_name} (#{zone_player.model_number})"
 
