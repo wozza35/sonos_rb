@@ -1,4 +1,5 @@
 require_relative '../../app/sonos/zone_player'
+require_relative '../../app/service'
 
 describe Sonos::ZonePlayer do
   let(:attributes) do
@@ -52,5 +53,16 @@ describe Sonos::ZonePlayer do
   describe '#zone_type' do
     subject { zone_player.zone_type }
     it { is_expected.to eq '21' }
+  end
+
+  describe '#coordinator_udns' do
+    let(:udns) { %w[uuid:RINCON_1 uuid:RINCON_2] }
+    let(:state) { instance_double(Service::ZoneGroupTopology::GetZoneGroupStateResponse, coordinator_udns: udns) }
+    let(:topology) { instance_double(Service::ZoneGroupTopology, name: 'ZoneGroupTopology', get_zone_group_state: state) }
+    let(:zone_player) { described_class.new(attributes, services: [topology]) }
+
+    subject { zone_player.coordinator_udns }
+
+    it { is_expected.to eq udns }
   end
 end
