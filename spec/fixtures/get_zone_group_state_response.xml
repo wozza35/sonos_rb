@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <s:Body>
+    <u:GetZoneGroupStateResponse xmlns:u="urn:schemas-upnp-org:service:ZoneGroupTopology:1">
+      <ZoneGroupState>
+        &lt;ZoneGroupState&gt;
+          &lt;ZoneGroups&gt;
+            &lt;ZoneGroup Coordinator=&quot;RINCON_38420BE51A3501400&quot;
+                       ID=&quot;RINCON_38420BE51A3501400:1309192624&quot;&gt;
+              &lt;ZoneGroupMember UUID=&quot;RINCON_38420BE51A3501400&quot;
+                               Location=&quot;http://192.168.0.182:1400/xml/device_description.xml&quot;
+                               ZoneName=&quot;Bedroom&quot;
+                               SoftwareVersion=&quot;94.1-75110&quot;
+                               HTSatChanMapSet=&quot;RINCON_38420BE51A3501400:LF,RF;RINCON_542A1B1F129801400:SW&quot;
+                               BootSeq=&quot;211&quot;
+                               Configuration=&quot;1&quot;&gt;
+                &lt;Satellite UUID=&quot;RINCON_542A1B1F129801400&quot;
+                           Location=&quot;http://192.168.0.211:1400/xml/device_description.xml&quot;
+                           ZoneName=&quot;Sub&quot;
+                           Invisible=&quot;1&quot;
+                           SoftwareVersion=&quot;94.1-75110&quot;
+                           BootSeq=&quot;256&quot;
+                           Configuration=&quot;1&quot;/&gt;
+              &lt;/ZoneGroupMember&gt;
+            &lt;/ZoneGroup&gt;
+            &lt;ZoneGroup Coordinator=&quot;RINCON_48A6B8FFFE4A0100&quot;
+                       ID=&quot;RINCON_48A6B8FFFE4A0100:4435771845&quot;&gt;
+              &lt;ZoneGroupMember UUID=&quot;RINCON_48A6B8FFFE4A0100&quot;
+                               Location=&quot;http://192.168.0.56:1400/xml/device_description.xml&quot;
+                               ZoneName=&quot;Living Room&quot;
+                               SoftwareVersion=&quot;94.1-75110&quot;
+                               BootSeq=&quot;134&quot;
+                               Configuration=&quot;1&quot;/&gt;
+            &lt;/ZoneGroup&gt;
+          &lt;/ZoneGroups&gt;
+          &lt;VanishedDevices&gt;&lt;/VanishedDevices&gt;
+        &lt;/ZoneGroupState&gt;
+      </ZoneGroupState>
+    </u:GetZoneGroupStateResponse>
+  </s:Body>
+</s:Envelope>

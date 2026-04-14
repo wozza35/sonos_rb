@@ -1,5 +1,5 @@
 require_relative '../../app/upnp/device'
-require_relative '../../app/upnp/service'
+require_relative '../../app/service/base'
 
 describe UPnP::Device do
   let(:attributes) do
@@ -49,7 +49,7 @@ describe UPnP::Device do
     it { is_expected.to eq [] }
 
     context 'when provided' do
-      let(:services) { [instance_double(UPnP::Service)] }
+      let(:services) { [instance_double(Service::Base)] }
       let(:device) { described_class.new(attributes, services: services) }
 
       it { is_expected.to eq services }

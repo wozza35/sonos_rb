@@ -1,9 +1,9 @@
-require_relative "../../app/cli"
+require_relative "../../../app/cli/commands/exit"
 
-describe Commands::Help do
+describe CLI::Commands::Exit do
   describe ".command_name" do
     subject { described_class.command_name }
-    it { is_expected.to eq "help" }
+    it { is_expected.to eq "exit" }
   end
 
   describe ".help" do
@@ -20,10 +20,10 @@ describe Commands::Help do
 
     subject { unit.execute }
 
-    it "lists all available commands" do
-      expect { subject }.to output(
-        CLI::COMMANDS.map { |cmd| "  #{cmd.command_name} - #{cmd.help}\n" }.join
-      ).to_stdout
+    it "exits with status 0" do
+      expect { subject }.to raise_error(SystemExit) { |e|
+        expect(e.status).to eq(0)
+      }
     end
   end
 end

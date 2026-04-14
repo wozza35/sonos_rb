@@ -1,6 +1,6 @@
-require_relative "../app/cli"
+require_relative "../../app/cli/runner"
 
-describe CLI do
+describe CLI::Runner do
   let(:unit) { described_class.new }
 
   describe "#start" do
@@ -12,8 +12,8 @@ describe CLI do
       before { allow(Readline).to receive(:readline).and_return(*commands, nil) }
 
       it "executes the commands" do
-        expect_any_instance_of(Commands::Help).to receive(:execute)
-        expect_any_instance_of(Commands::Exit).to receive(:execute)
+        expect_any_instance_of(CLI::Commands::Help).to receive(:execute)
+        expect_any_instance_of(CLI::Commands::Exit).to receive(:execute)
         subject
       end
     end
@@ -24,7 +24,7 @@ describe CLI do
       before { allow(Readline).to receive(:readline).and_return(unrecognized_command, nil) }
 
       it "prints unknown command message" do
-        expect { subject }.to output(include(CLI::UNKNOWN_COMMAND % unrecognized_command)).to_stdout
+        expect { subject }.to output(include(CLI::Runner::UNKNOWN_COMMAND % unrecognized_command)).to_stdout
       end
     end
   end

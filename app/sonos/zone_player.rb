@@ -29,5 +29,15 @@ module Sonos
     def zone_type
       attributes[:zoneType]
     end
+
+    def coordinator_udns
+      service('ZoneGroupTopology').get_zone_group_state.coordinator_udns
+    end
+
+    private
+
+    def service(name)
+      services.find { |s| s.name == name }
+    end
   end
 end

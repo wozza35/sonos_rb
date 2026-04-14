@@ -1,7 +1,7 @@
 require 'net/http'
 require 'rexml/document'
 require_relative '../xml/element_parser'
-require_relative '../upnp/service'
+require_relative '../service'
 require_relative 'zone_player'
 
 module Sonos
@@ -43,7 +43,7 @@ module Sonos
       return [] unless service_list
 
       service_list.elements.collect('service') do |service_xml|
-        UPnP::Service.new(XML::ElementParser.parse(service_xml))
+        Service.build(attributes: XML::ElementParser.parse(service_xml), base_uri: location.uri)
       end
     end
   end

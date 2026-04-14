@@ -31,47 +31,43 @@ describe Sonos::DeviceDescription do
     end
 
     it 'parses the services' do
-      service_types = zone_player.services.map(&:service_type)
-      expect(service_types).to eq [
-        'urn:schemas-upnp-org:service:AlarmClock:1',
-        'urn:schemas-upnp-org:service:MusicServices:1',
-        'urn:schemas-upnp-org:service:DeviceProperties:1',
-        'urn:schemas-upnp-org:service:SystemProperties:1',
-        'urn:schemas-upnp-org:service:ZoneGroupTopology:1',
-        'urn:schemas-upnp-org:service:GroupManagement:1',
-        'urn:schemas-upnp-org:service:HTControl:1',
-        'urn:schemas-tencent-com:service:QPlay:1',
+      service_names = zone_player.services.map(&:name)
+      expect(service_names).to eq %w[
+        AlarmClock
+        MusicServices
+        DeviceProperties
+        SystemProperties
+        ZoneGroupTopology
+        GroupManagement
+        HTControl
+        QPlay
       ]
     end
 
-    it 'parses the embedded devices' do
-      device_types = zone_player.embedded_devices.map(&:device_type)
-      expect(device_types).to eq [
-        'urn:schemas-upnp-org:device:MediaServer:1',
-        'urn:schemas-upnp-org:device:MediaRenderer:1',
-      ]
+    it 'builds each service' do
+      created_services = []
+      expect(Service).to receive(:build).at_least(:once).and_wrap_original do |method, **kwargs|
+        method.call(**kwargs).tap { |service| created_services << service }
+      end
+
+      all_services = zone_player.services + zone_player.embedded_devices.flat_map(&:services)
+      expect(all_services).to eq(created_services)
     end
 
-    it 'parses media server services' do
-      media_server = zone_player.embedded_devices.first
-      service_types = media_server.services.map(&:service_type)
-      expect(service_types).to eq [
-        'urn:schemas-upnp-org:service:ContentDirectory:1',
-        'urn:schemas-upnp-org:service:ConnectionManager:1',
-      ]
-    end
+    describe 'embedded devices' do
+      it 'parses the embedded devices' do
+        device_types = zone_player.embedded_devices.map(&:device_type)
+        expect(device_types).to eq ['urn:schemas-upnp-org:device:MediaServer:1',
+                                     'urn:schemas-upnp-org:device:MediaRenderer:1']
+      end
 
-    it 'parses media renderer services' do
-      media_renderer = zone_player.embedded_devices.last
-      service_types = media_renderer.services.map(&:service_type)
-      expect(service_types).to eq [
-        'urn:schemas-upnp-org:service:RenderingControl:1',
-        'urn:schemas-upnp-org:service:ConnectionManager:1',
-        'urn:schemas-upnp-org:service:AVTransport:1',
-        'urn:schemas-sonos-com:service:Queue:1',
-        'urn:schemas-upnp-org:service:GroupRenderingControl:1',
-        'urn:schemas-upnp-org:service:VirtualLineIn:1',
-      ]
+      it 'parses the services of the embedded devices' do
+        service_names = zone_player.embedded_devices.map { |d| d.services.map(&:name) }
+        expect(service_names).to eq [
+          %w[ContentDirectory ConnectionManager],
+          %w[RenderingControl ConnectionManager AVTransport Queue GroupRenderingControl VirtualLineIn],
+        ]
+      end
     end
   end
 end
