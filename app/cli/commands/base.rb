@@ -1,6 +1,10 @@
 module CLI
   module Commands
     class Base
+      def initialize(store)
+        @store = store
+      end
+
       def self.command_name
         raise NotImplementedError
       end
@@ -12,6 +16,10 @@ module CLI
       def execute
         raise NotImplementedError
       end
+
+      private
+
+      attr_reader :store
     end
   end
 end
