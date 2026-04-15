@@ -1,6 +1,7 @@
 require_relative "commands/exit"
 require_relative "commands/help"
 require_relative "commands/scan"
+require_relative "commands/select"
 require_relative 'session'
 require 'readline'
 
@@ -10,6 +11,7 @@ module CLI
       Commands::Help,
       Commands::Exit,
       Commands::Scan,
+      Commands::Select,
     ].freeze
 
     HINT = "Type 'help' for a list of commands, 'exit' to quit."
