@@ -15,6 +15,7 @@ module CLI
       def execute
         puts "Scanning for Sonos devices..."
         network = Sonos::Network.discover
+        store.network = network
 
         if network.zone_players.empty?
           puts "No devices found."

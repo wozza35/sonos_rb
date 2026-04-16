@@ -16,7 +16,8 @@ describe CLI::Commands::Exit do
   end
 
   describe "#execute" do
-    let(:unit) { described_class.new }
+    let(:session) { instance_double(CLI::Session) }
+    let(:unit) { described_class.new(session) }
 
     subject { unit.execute }
 
