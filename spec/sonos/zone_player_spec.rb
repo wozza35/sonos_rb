@@ -1,5 +1,5 @@
-require_relative '../../app/sonos/zone_player'
-require_relative '../../app/service'
+require_relative '../../lib/sonos/zone_player'
+require_relative '../../lib/service'
 
 describe Sonos::ZonePlayer do
   let(:attributes) do

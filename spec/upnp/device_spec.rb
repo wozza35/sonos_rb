@@ -1,5 +1,5 @@
-require_relative '../../app/upnp/device'
-require_relative '../../app/service/base'
+require_relative '../../lib/upnp/device'
+require_relative '../../lib/service/base'
 
 describe UPnP::Device do
   let(:attributes) do

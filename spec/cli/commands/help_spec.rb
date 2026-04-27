@@ -1,4 +1,4 @@
-require_relative "../../../app/cli/runner"
+require_relative "../../../lib/cli/runner"
 
 describe CLI::Commands::Help do
   describe ".command_name" do

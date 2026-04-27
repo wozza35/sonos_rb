@@ -1,4 +1,4 @@
-require_relative '../../app/ssdp/scanner'
+require_relative '../../lib/ssdp/scanner'
 
 describe SSDP::Scanner do
   let(:search_target) { 'urn:schemas-upnp-org:device:ZonePlayer:1' }

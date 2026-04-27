@@ -1,4 +1,4 @@
-require_relative '../../app/service/zone_group_topology'
+require_relative '../../lib/service/zone_group_topology'
 
 describe Service::ZoneGroupTopology do
   let(:service) { described_class.allocate }

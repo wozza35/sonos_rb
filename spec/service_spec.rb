@@ -1,5 +1,5 @@
 require 'uri'
-require_relative '../app/service'
+require_relative '../lib/service'
 
 describe Service do
   describe '.build' do

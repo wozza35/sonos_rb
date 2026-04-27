@@ -1,4 +1,4 @@
-require_relative '../../app/service/base'
+require_relative '../../lib/service/base'
 
 describe Service::Base do
   let(:base_uri) { URI('http://192.168.0.182:1400') }

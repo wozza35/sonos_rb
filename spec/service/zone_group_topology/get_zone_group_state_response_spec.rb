@@ -1,5 +1,5 @@
 require 'rexml/document'
-require_relative '../../../app/service/zone_group_topology/get_zone_group_state_response'
+require_relative '../../../lib/service/zone_group_topology/get_zone_group_state_response'
 
 describe Service::ZoneGroupTopology::GetZoneGroupStateResponse do
   let(:fixture) { File.read('spec/fixtures/get_zone_group_state_response.xml') }

@@ -1,4 +1,4 @@
-require_relative '../../app/soap/envelope'
+require_relative '../../lib/soap/envelope'
 
 describe SOAP::Envelope do
   let(:namespace) { 'urn:schemas-upnp-org:service:Example:1' }

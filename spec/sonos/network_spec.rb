@@ -1,4 +1,4 @@
-require_relative '../../app/sonos/network'
+require_relative '../../lib/sonos/network'
 
 describe Sonos::Network do
   let(:coordinator_udns) { %w[uuid:RINCON_1 uuid:RINCON_3] }
