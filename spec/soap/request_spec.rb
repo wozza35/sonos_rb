@@ -1,4 +1,4 @@
-require_relative '../../app/soap/request'
+require_relative '../../lib/soap/request'
 
 describe SOAP::Request do
   let(:uri) { URI('http://192.168.0.182:1400/MediaRenderer/AVTransport/Control') }

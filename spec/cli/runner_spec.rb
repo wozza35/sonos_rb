@@ -1,4 +1,4 @@
-require_relative "../../app/cli/runner"
+require_relative "../../lib/cli/runner"
 
 describe CLI::Runner do
   let(:unit) { described_class.new }

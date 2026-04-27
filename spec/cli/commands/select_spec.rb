@@ -1,5 +1,5 @@
-require_relative "../../../app/cli/commands/select"
-require_relative "../../../app/cli/session"
+require_relative "../../../lib/cli/commands/select"
+require_relative "../../../lib/cli/session"
 
 describe CLI::Commands::Select do
   describe ".command_name" do

@@ -1,4 +1,4 @@
-require_relative '../../app/ssdp/location'
+require_relative '../../lib/ssdp/location'
 
 describe SSDP::Location do
   let(:subject) { described_class.new('http://192.168.1.10:1400/xml/device_description.xml') }

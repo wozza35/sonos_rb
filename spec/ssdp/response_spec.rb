@@ -1,4 +1,4 @@
-require_relative '../../app/ssdp/response'
+require_relative '../../lib/ssdp/response'
 
 describe SSDP::Response do
   let(:raw_response) do

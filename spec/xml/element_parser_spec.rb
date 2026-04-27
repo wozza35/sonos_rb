@@ -1,5 +1,5 @@
 require 'rexml/document'
-require_relative '../../app/xml/element_parser'
+require_relative '../../lib/xml/element_parser'
 
 describe XML::ElementParser do
   it 'returns text children as a hash' do

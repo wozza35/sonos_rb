@@ -1,5 +1,5 @@
-require_relative '../../app/sonos/device_description'
-require_relative '../../app/ssdp/location'
+require_relative '../../lib/sonos/device_description'
+require_relative '../../lib/ssdp/location'
 
 describe Sonos::DeviceDescription do
   let(:location) { SSDP::Location.new('http://192.168.1.10:1400/xml/device_description.xml') }
