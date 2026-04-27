@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative "cli/runner"
+require_relative '../app/cli/runner'
 
 CLI::Runner.new.start

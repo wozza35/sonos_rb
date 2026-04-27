@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-ENTRYPOINT ["ruby", "app/sonos_rb.rb"]
+ENTRYPOINT ["ruby", "bin/sonos_rb"]
