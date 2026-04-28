@@ -1,7 +1,4 @@
-require_relative '../../lib/upnp/device'
-require_relative '../../lib/service/base'
-
-describe UPnP::Device do
+describe SonosRB::UPnP::Device do
   let(:attributes) do
     {
       deviceType: 'urn:schemas-upnp-org:device:MediaRenderer:1',
@@ -49,7 +46,7 @@ describe UPnP::Device do
     it { is_expected.to eq [] }
 
     context 'when provided' do
-      let(:services) { [instance_double(Service::Base)] }
+      let(:services) { [instance_double(SonosRB::Service::Base)] }
       let(:device) { described_class.new(attributes, services: services) }
 
       it { is_expected.to eq services }

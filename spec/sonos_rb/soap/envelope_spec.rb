@@ -1,6 +1,4 @@
-require_relative '../../lib/soap/envelope'
-
-describe SOAP::Envelope do
+describe SonosRB::SOAP::Envelope do
   let(:namespace) { 'urn:schemas-upnp-org:service:Example:1' }
   let(:operation) { 'TestAction' }
   let(:envelope) { described_class.new(operation, namespace) }

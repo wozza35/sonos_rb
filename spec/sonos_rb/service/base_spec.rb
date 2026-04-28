@@ -1,6 +1,4 @@
-require_relative '../../lib/service/base'
-
-describe Service::Base do
+describe SonosRB::Service::Base do
   let(:base_uri) { URI('http://192.168.0.182:1400') }
   let(:attributes) do
     {
@@ -18,10 +16,10 @@ describe Service::Base do
   describe '#call' do
     let(:action) { 'GetTransportInfo' }
     let(:response) { instance_double(Net::HTTPResponse, body: '<xml/>') }
-    let(:soap_request) { instance_double(SOAP::Request, perform: response) }
+    let(:soap_request) { instance_double(SonosRB::SOAP::Request, perform: response) }
 
     before do
-      allow(SOAP::Request).to receive(:new)
+      allow(SonosRB::SOAP::Request).to receive(:new)
         .with(URI('http://192.168.0.182:1400/MediaRenderer/AVTransport/Control'), action, attributes[:serviceType])
         .and_return(soap_request)
     end

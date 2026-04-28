@@ -1,6 +1,4 @@
-require_relative '../../lib/soap/request'
-
-describe SOAP::Request do
+describe SonosRB::SOAP::Request do
   let(:uri) { URI('http://192.168.0.182:1400/MediaRenderer/AVTransport/Control') }
   let(:operation) { 'GetTransportInfo' }
   let(:namespace) { 'urn:schemas-upnp-org:service:AVTransport:1' }
@@ -17,7 +15,7 @@ describe SOAP::Request do
     subject { unit.perform }
 
     it 'makes an HTTP request and returns the response' do
-      expected_body = SOAP::Envelope.new(operation, namespace).to_xml
+      expected_body = SonosRB::SOAP::Envelope.new(operation, namespace).to_xml
 
       expect(http).to receive(:request) do |req|
         expect(req).to be_a(Net::HTTP::Post)

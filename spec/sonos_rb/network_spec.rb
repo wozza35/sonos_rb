@@ -1,25 +1,23 @@
-require_relative '../../lib/sonos/network'
-
-describe Sonos::Network do
+describe SonosRB::Network do
   let(:coordinator_udns) { %w[uuid:RINCON_1 uuid:RINCON_3] }
 
-  let(:zone_player_1) { instance_double(Sonos::ZonePlayer, udn: 'uuid:RINCON_1', coordinator_udns: coordinator_udns) }
-  let(:zone_player_2) { instance_double(Sonos::ZonePlayer, udn: 'uuid:RINCON_2') }
-  let(:zone_player_3) { instance_double(Sonos::ZonePlayer, udn: 'uuid:RINCON_3') }
+  let(:zone_player_1) { instance_double(SonosRB::ZonePlayer, udn: 'uuid:RINCON_1', coordinator_udns: coordinator_udns) }
+  let(:zone_player_2) { instance_double(SonosRB::ZonePlayer, udn: 'uuid:RINCON_2') }
+  let(:zone_player_3) { instance_double(SonosRB::ZonePlayer, udn: 'uuid:RINCON_3') }
   let(:zone_players) { [zone_player_1, zone_player_2, zone_player_3] }
 
   describe 'class methods' do
     describe '.discover' do
-      let(:locations) { 3.times.map { instance_double(SSDP::Location) } }
-      let(:scanner) { instance_double(SSDP::Scanner, scan: locations) }
+      let(:locations) { 3.times.map { instance_double(SonosRB::SSDP::Location) } }
+      let(:scanner) { instance_double(SonosRB::SSDP::Scanner, scan: locations) }
 
       subject { described_class.discover }
 
       before do
-        allow(SSDP::Scanner).to receive(:new).with(described_class::SEARCH_TARGET).and_return(scanner)
+        allow(SonosRB::SSDP::Scanner).to receive(:new).with(described_class::SEARCH_TARGET).and_return(scanner)
         locations.each_with_index do |loc, i|
-          allow(Sonos::DeviceDescription).to receive(:new).with(loc).and_return(
-            instance_double(Sonos::DeviceDescription, fetch: zone_players[i])
+          allow(SonosRB::DeviceDescription).to receive(:new).with(loc).and_return(
+            instance_double(SonosRB::DeviceDescription, fetch: zone_players[i])
           )
         end
       end

@@ -1,7 +1,4 @@
-require_relative '../../lib/sonos/zone_player'
-require_relative '../../lib/service'
-
-describe Sonos::ZonePlayer do
+describe SonosRB::ZonePlayer do
   let(:attributes) do
     {
       deviceType: 'urn:schemas-upnp-org:device:ZonePlayer:1',
@@ -17,7 +14,7 @@ describe Sonos::ZonePlayer do
   let(:zone_player) { described_class.new(attributes) }
 
   it 'is a UPnP::Device' do
-    expect(zone_player).to be_a(UPnP::Device)
+    expect(zone_player).to be_a(SonosRB::UPnP::Device)
   end
 
   describe '#room_name' do
@@ -57,8 +54,8 @@ describe Sonos::ZonePlayer do
 
   describe '#coordinator_udns' do
     let(:udns) { %w[uuid:RINCON_1 uuid:RINCON_2] }
-    let(:state) { instance_double(Service::ZoneGroupTopology::GetZoneGroupStateResponse, coordinator_udns: udns) }
-    let(:topology) { instance_double(Service::ZoneGroupTopology, name: 'ZoneGroupTopology', get_zone_group_state: state) }
+    let(:state) { instance_double(SonosRB::Service::ZoneGroupTopology::GetZoneGroupStateResponse, coordinator_udns: udns) }
+    let(:topology) { instance_double(SonosRB::Service::ZoneGroupTopology, name: 'ZoneGroupTopology', get_zone_group_state: state) }
     let(:zone_player) { described_class.new(attributes, services: [topology]) }
 
     subject { zone_player.coordinator_udns }

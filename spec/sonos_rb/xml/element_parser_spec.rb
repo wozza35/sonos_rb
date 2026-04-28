@@ -1,7 +1,6 @@
 require 'rexml/document'
-require_relative '../../lib/xml/element_parser'
 
-describe XML::ElementParser do
+describe SonosRB::XML::ElementParser do
   it 'returns text children as a hash' do
     xml = REXML::Document.new(<<~XML).root
       <service>

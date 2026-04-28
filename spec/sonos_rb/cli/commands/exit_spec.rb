@@ -1,6 +1,4 @@
-require_relative "../../../lib/cli/commands/exit"
-
-describe CLI::Commands::Exit do
+describe SonosRB::CLI::Commands::Exit do
   describe ".command_name" do
     subject { described_class.command_name }
     it { is_expected.to eq "exit" }
@@ -16,7 +14,7 @@ describe CLI::Commands::Exit do
   end
 
   describe "#execute" do
-    let(:session) { instance_double(CLI::Session) }
+    let(:session) { instance_double(SonosRB::CLI::Session) }
     let(:unit) { described_class.new(session) }
 
     subject { unit.execute }

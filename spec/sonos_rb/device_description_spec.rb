@@ -1,8 +1,5 @@
-require_relative '../../lib/sonos/device_description'
-require_relative '../../lib/ssdp/location'
-
-describe Sonos::DeviceDescription do
-  let(:location) { SSDP::Location.new('http://192.168.1.10:1400/xml/device_description.xml') }
+describe SonosRB::DeviceDescription do
+  let(:location) { SonosRB::SSDP::Location.new('http://192.168.1.10:1400/xml/device_description.xml') }
   let(:unit) { described_class.new(location) }
 
   describe '#fetch' do
@@ -15,7 +12,7 @@ describe Sonos::DeviceDescription do
     end
 
     it 'returns a ZonePlayer' do
-      expect(zone_player).to be_a(Sonos::ZonePlayer)
+      expect(zone_player).to be_a(SonosRB::ZonePlayer)
     end
 
     it 'parses the zone player attributes' do
@@ -46,7 +43,7 @@ describe Sonos::DeviceDescription do
 
     it 'builds each service' do
       created_services = []
-      expect(Service).to receive(:build).at_least(:once).and_wrap_original do |method, **kwargs|
+      expect(SonosRB::Service).to receive(:build).at_least(:once).and_wrap_original do |method, **kwargs|
         method.call(**kwargs).tap { |service| created_services << service }
       end
 

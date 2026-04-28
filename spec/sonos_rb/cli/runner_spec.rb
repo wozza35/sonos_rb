@@ -1,6 +1,4 @@
-require_relative "../../lib/cli/runner"
-
-describe CLI::Runner do
+describe SonosRB::CLI::Runner do
   let(:unit) { described_class.new }
 
   describe "#start" do
@@ -12,8 +10,8 @@ describe CLI::Runner do
       before { allow(Readline).to receive(:readline).and_return(*commands, nil) }
 
       it "executes the commands" do
-        expect_any_instance_of(CLI::Commands::Help).to receive(:execute)
-        expect_any_instance_of(CLI::Commands::Exit).to receive(:execute)
+        expect_any_instance_of(SonosRB::CLI::Commands::Help).to receive(:execute)
+        expect_any_instance_of(SonosRB::CLI::Commands::Exit).to receive(:execute)
         subject
       end
     end
@@ -24,7 +22,7 @@ describe CLI::Runner do
       before { allow(Readline).to receive(:readline).and_return(unrecognized_command, nil) }
 
       it "prints unknown command message" do
-        expect { subject }.to output(include(CLI::Runner::UNKNOWN_COMMAND % unrecognized_command)).to_stdout
+        expect { subject }.to output(include(SonosRB::CLI::Runner::UNKNOWN_COMMAND % unrecognized_command)).to_stdout
       end
     end
   end

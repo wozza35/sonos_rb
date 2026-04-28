@@ -1,7 +1,4 @@
-require_relative "../../../lib/cli/commands/select"
-require_relative "../../../lib/cli/session"
-
-describe CLI::Commands::Select do
+describe SonosRB::CLI::Commands::Select do
   describe ".command_name" do
     subject { described_class.command_name }
     it { is_expected.to eq "select" }
@@ -17,13 +14,13 @@ describe CLI::Commands::Select do
   end
 
   describe "#execute" do
-    let(:store) { CLI::Session.new }
+    let(:store) { SonosRB::CLI::Session.new }
     let(:unit) { described_class.new(store) }
 
-    let(:coordinator_1) { instance_double(Sonos::ZonePlayer, room_name: 'Bedroom', display_name: 'Arc') }
-    let(:coordinator_2) { instance_double(Sonos::ZonePlayer, room_name: 'Living Room', display_name: 'One') }
+    let(:coordinator_1) { instance_double(SonosRB::ZonePlayer, room_name: 'Bedroom', display_name: 'Arc') }
+    let(:coordinator_2) { instance_double(SonosRB::ZonePlayer, room_name: 'Living Room', display_name: 'One') }
     let(:coordinators) { [coordinator_1, coordinator_2] }
-    let(:network) { instance_double(Sonos::Network, coordinators: coordinators) }
+    let(:network) { instance_double(SonosRB::Network, coordinators: coordinators) }
 
     before do
       allow(unit).to receive(:puts)
@@ -33,10 +30,10 @@ describe CLI::Commands::Select do
     subject { unit.execute }
 
     context 'when the store does not have a network' do
-      before { allow(Sonos::Network).to receive(:discover).and_return network }
+      before { allow(SonosRB::Network).to receive(:discover).and_return network }
 
       it 'attempts to discover a network' do
-        expect(Sonos::Network).to receive(:discover).and_return network
+        expect(SonosRB::Network).to receive(:discover).and_return network
         subject
       end
 
@@ -50,7 +47,7 @@ describe CLI::Commands::Select do
       before { store.network = network }
 
       it 'does not attempt to discover a network' do
-        expect(Sonos::Network).to_not receive(:discover)
+        expect(SonosRB::Network).to_not receive(:discover)
         subject
       end
 
