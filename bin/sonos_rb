@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/cli/runner'
+require 'sonos_rb'
 
-CLI::Runner.new.start
+SonosRB::CLI::Runner.new.start
