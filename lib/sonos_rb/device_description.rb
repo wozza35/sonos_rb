@@ -1,10 +1,11 @@
 require 'net/http'
 require 'rexml/document'
-require_relative '../xml/element_parser'
-require_relative '../service'
-require_relative 'zone_player'
+require 'sonos_rb/xml/element_parser'
+require 'sonos_rb/service'
+require 'sonos_rb/upnp/device'
+require 'sonos_rb/zone_player'
 
-module Sonos
+module SonosRB
   class DeviceDescription
     def initialize(location)
       @location = location

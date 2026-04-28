@@ -1,18 +1,20 @@
-require_relative "base"
+require 'sonos_rb/cli/commands/base'
 
-module CLI
-  module Commands
-    class Exit < Base
-      def self.command_name
-        "exit"
-      end
+module SonosRB
+  module CLI
+    module Commands
+      class Exit < Base
+        def self.command_name
+          "exit"
+        end
 
-      def self.help
-        "Exit the CLI"
-      end
+        def self.help
+          "Exit the CLI"
+        end
 
-      def execute
-        exit(0)
+        def execute
+          exit(0)
+        end
       end
     end
   end

@@ -1,7 +1,7 @@
-require_relative '../ssdp/scanner'
-require_relative 'device_description'
+require 'sonos_rb/ssdp/scanner'
+require 'sonos_rb/device_description'
 
-module Sonos
+module SonosRB
   class Network
     SEARCH_TARGET = "urn:schemas-upnp-org:device:ZonePlayer:1"
 

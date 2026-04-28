@@ -1,6 +1,6 @@
-require_relative '../upnp/device'
+require 'sonos_rb/upnp/device'
 
-module Sonos
+module SonosRB
   class ZonePlayer < UPnP::Device
     def room_name
       attributes[:roomName]
