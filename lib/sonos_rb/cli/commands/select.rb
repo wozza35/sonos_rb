@@ -13,7 +13,7 @@ module SonosRB
           "Select a Sonos coordinator to control"
         end
 
-        def execute
+        def execute(_args = [])
           unless store.network
             puts "Scanning for Sonos devices..."
             store.network = Network.discover

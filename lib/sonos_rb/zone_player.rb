@@ -34,6 +34,14 @@ module SonosRB
       service('ZoneGroupTopology').get_zone_group_state.coordinator_udns
     end
 
+    def volume
+      service('RenderingControl').get_volume
+    end
+
+    def volume=(level)
+      service('RenderingControl').set_volume(level)
+    end
+
     private
 
     def service(name)

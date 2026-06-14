@@ -12,8 +12,21 @@ describe SonosRB::CLI::Runner do
       before { allow(Readline).to receive(:readline).and_return(*commands, nil) }
 
       it "executes the commands" do
-        expect_any_instance_of(SonosRB::CLI::Commands::Help).to receive(:execute)
-        expect_any_instance_of(SonosRB::CLI::Commands::Exit).to receive(:execute)
+        expect_any_instance_of(SonosRB::CLI::Commands::Help).to receive(:execute).with([])
+        expect_any_instance_of(SonosRB::CLI::Commands::Exit).to receive(:execute).with([])
+        expect { subject }.to output.to_stdout
+      end
+    end
+
+    describe 'commands with arguments' do
+      let(:commands) { ['volume 27', nil] }
+
+      before do
+        allow(Readline).to receive(:readline).and_return(*commands)
+      end
+
+      it 'passes the parsed arguments to the command' do
+        expect_any_instance_of(SonosRB::CLI::Commands::Volume).to receive(:execute).with(['27'])
         expect { subject }.to output.to_stdout
       end
     end

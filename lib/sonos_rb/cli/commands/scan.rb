@@ -13,7 +13,7 @@ module SonosRB
           "Scan the network for Sonos devices"
         end
 
-        def execute
+        def execute(_args = [])
           puts "Scanning for Sonos devices..."
           network = Network.discover
           store.network = network

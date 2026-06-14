@@ -12,7 +12,7 @@ module SonosRB
           "Show available commands"
         end
 
-        def execute
+        def execute(_args = [])
           Runner::COMMANDS.each { |cmd| puts "  #{cmd.command_name} - #{cmd.help}" }
         end
       end

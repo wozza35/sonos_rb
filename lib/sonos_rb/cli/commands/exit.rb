@@ -12,7 +12,7 @@ module SonosRB
           "Exit the CLI"
         end
 
-        def execute
+        def execute(_args = [])
           exit(0)
         end
       end

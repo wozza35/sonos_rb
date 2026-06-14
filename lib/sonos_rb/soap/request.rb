@@ -4,10 +4,11 @@ require_relative 'envelope'
 module SonosRB
   module SOAP
     class Request
-      def initialize(uri, operation, namespace)
+      def initialize(uri, operation, namespace, arguments = {})
         @uri = uri
         @operation = operation
         @namespace = namespace
+        @arguments = arguments
       end
 
       def perform
@@ -17,7 +18,7 @@ module SonosRB
 
       private
 
-      attr_reader :uri, :operation, :namespace
+      attr_reader :uri, :operation, :namespace, :arguments
 
       def build_post
         Net::HTTP::Post.new(uri).tap do |request|
@@ -34,7 +35,7 @@ module SonosRB
       end
 
       def request_body
-        Envelope.new(operation, namespace).to_xml
+        Envelope.new(operation, namespace, arguments).to_xml
       end
     end
   end
