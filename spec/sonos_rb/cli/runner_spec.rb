@@ -14,7 +14,7 @@ describe SonosRB::CLI::Runner do
       it "executes the commands" do
         expect_any_instance_of(SonosRB::CLI::Commands::Help).to receive(:execute)
         expect_any_instance_of(SonosRB::CLI::Commands::Exit).to receive(:execute)
-        subject
+        expect { subject }.to output.to_stdout
       end
     end
 
