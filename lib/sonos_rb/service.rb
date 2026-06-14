@@ -1,6 +1,7 @@
 module SonosRB
   module Service
     autoload :Base, File.expand_path('service/base', __dir__)
+    autoload :RenderingControl, File.expand_path('service/rendering_control', __dir__)
     autoload :ZoneGroupTopology, File.expand_path('service/zone_group_topology', __dir__)
 
     def self.build(attributes:, base_uri:)

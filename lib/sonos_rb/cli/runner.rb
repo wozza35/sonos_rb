@@ -2,6 +2,7 @@ require_relative "commands/exit"
 require_relative "commands/help"
 require_relative "commands/scan"
 require_relative "commands/select"
+require_relative "commands/volume"
 require_relative "session"
 require "readline"
 
@@ -13,6 +14,7 @@ module SonosRB
         Commands::Exit,
         Commands::Scan,
         Commands::Select,
+        Commands::Volume,
       ].freeze
 
       HINT = "Type 'help' for a list of commands, 'exit' to quit."

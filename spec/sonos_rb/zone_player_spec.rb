@@ -65,4 +65,27 @@ describe SonosRB::ZonePlayer do
 
     it { is_expected.to eq udns }
   end
+
+  describe '#volume' do
+    let(:get_volume_response) { instance_double(SonosRB::Service::RenderingControl::GetVolumeResponse, current_volume: 35) }
+    let(:rendering_control) { instance_double(SonosRB::Service::RenderingControl, name: 'RenderingControl', get_volume: get_volume_response) }
+    let(:zone_player) { described_class.new(attributes, services: [rendering_control]) }
+
+    subject { zone_player.volume }
+
+    it { is_expected.to eq 35 }
+  end
+
+  describe '#volume=' do
+    let(:rendering_control) { instance_double(SonosRB::Service::RenderingControl, name: 'RenderingControl') }
+    let(:zone_player) { described_class.new(attributes, services: [rendering_control]) }
+
+    subject { zone_player.volume = 50 }
+
+    it 'calls set_volume on the RenderingControl service' do
+      expect(rendering_control).to receive(:set_volume).with(50)
+      subject
+    end
+  end
 end
+

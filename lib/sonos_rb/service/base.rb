@@ -13,8 +13,8 @@ module SonosRB
         service_type.split(':')[-2]
       end
 
-      def call(action)
-        response = SOAP::Request.new(control_uri, action, service_type).perform
+      def call(action, args = {})
+        response = SOAP::Request.new(control_uri, action, service_type, args).perform
         REXML::Document.new(response.body)
       end
 

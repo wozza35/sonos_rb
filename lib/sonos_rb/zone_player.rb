@@ -34,10 +34,19 @@ module SonosRB
       service('ZoneGroupTopology').get_zone_group_state.coordinator_udns
     end
 
+    def volume
+      service('RenderingControl').get_volume.current_volume
+    end
+
+    def volume=(level)
+      service('RenderingControl').set_volume(level)
+    end
+
     private
 
     def service(name)
-      services.find { |s| s.name == name }
+      all_services = services + embedded_devices.flat_map(&:services)
+      all_services.find { |s| s.name == name }
     end
   end
 end

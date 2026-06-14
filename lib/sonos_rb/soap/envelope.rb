@@ -3,9 +3,10 @@ module SonosRB
     class Envelope
       attr_reader :body
 
-      def initialize(operation, namespace)
+      def initialize(operation, namespace, args = {})
         @operation = operation
         @namespace = namespace
+        @args = args
       end
 
       def to_xml
@@ -13,7 +14,7 @@ module SonosRB
           <?xml version="1.0" encoding="utf-8"?>
           <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
             <s:Body>
-              <u:#{operation} xmlns:u="#{namespace}"/>
+              #{action_element}
             </s:Body>
           </s:Envelope>
         XML
@@ -21,7 +22,15 @@ module SonosRB
 
       private
 
-      attr_reader :operation, :namespace
+      attr_reader :operation, :namespace, :args
+
+      def action_element
+        return "<u:#{operation} xmlns:u=\"#{namespace}\"/>" if args.empty?
+
+        children = args.map { |k, v| "      <#{k}>#{v}</#{k}>" }.join("\n")
+        "<u:#{operation} xmlns:u=\"#{namespace}\">\n#{children}\n    </u:#{operation}>"
+      end
     end
   end
 end
+
