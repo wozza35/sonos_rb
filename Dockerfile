@@ -4,4 +4,6 @@ WORKDIR /app
 
 COPY . .
 
+RUN bundle install
+
 ENTRYPOINT ["ruby", "bin/sonos_rb"]

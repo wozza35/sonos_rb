@@ -11,8 +11,9 @@ docker run -it --net=host sonos_rb
 
 `--net=host` is required so the container can access your local network for Sonos device discovery.
 
-## Running with Ruby
+## Running locally
 
 ```
-ruby sonos_rb.rb
+bundle install
+ruby bin/sonos_rb
 ```
